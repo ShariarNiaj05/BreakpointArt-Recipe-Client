@@ -34,7 +34,9 @@ const Navbar = () => {
         <ul className="menu menu-horizontal px-1">{navItem}</ul>
       </div>
       <div className="navbar-end">
-        <a className="btn bg-green-600 text-white rounded p-2 hover:bg-green-400 hover:text-white">Login</a>
+        <a className="btn bg-green-600 text-white rounded p-2 hover:bg-green-400 hover:text-white">
+          Login
+        </a>
       </div>
     </div>
   );
@@ -52,11 +54,11 @@ const navItem = (
     <NavLink to={"/"} className={activeLinkStyle}>
       Home
     </NavLink>
-    <NavLink to={"/about"} className={activeLinkStyle}>
-      About Us
+    <NavLink to={"/all-recipe"} className={activeLinkStyle}>
+      All Recipe
     </NavLink>
-    <NavLink to={"/contact"} className={activeLinkStyle}>
-      Contact
+    <NavLink to={"/add-recipe"} className={activeLinkStyle}>
+      Add Recipe
     </NavLink>
   </>
 );
