@@ -1,6 +1,13 @@
 import { useState } from "react";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+import { imageUpload } from "../../API/imageUpload";
 
 const AddRecipe = () => {
+  const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
+
   const [recipe, setRecipe] = useState({
     title: "",
     ingredients: [],
@@ -15,20 +22,35 @@ const AddRecipe = () => {
     setRecipe({ ...recipe, ingredients: selectedIngredients });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const form = e.target;
     const title = form.title.value;
     const instructions = form.instruction.value;
+    const image = form.image.files[0];
+    const imageData = await imageUpload(image);
 
     const newRecipe = {
       title,
       instructions,
       ingredients: recipe.ingredients,
+      recipeImage: imageData?.data?.display_url,
     };
-    // Handle the submission logic here, for example, send the 'recipe' state to the server
-    console.log("Submitted Recipe:", newRecipe);
+
+    axiosSecure.put("/recipe", newRecipe).then((res) => {
+      if (res.data.insertedId) {
+        // console.log("Recipe added to DB");
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Recipe Added",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+      navigate("/all-recipe");
+    });
   };
 
   return (
@@ -78,6 +100,19 @@ const AddRecipe = () => {
               className="input input-bordered"
               required
             ></textarea>
+          </div>
+
+          <div>
+            <label htmlFor="image" className="block mb-2 text-sm">
+              Select Image:
+            </label>
+            <input
+              type="file"
+              id="image"
+              name="image"
+              accept="image/*"
+              required
+            />
           </div>
 
           <button type="submit" className="btn btn-primary">
