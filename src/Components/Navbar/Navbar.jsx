@@ -42,6 +42,7 @@ const Navbar = () => {
   );
 };
 
+// active color styling for nav link 
 const activeLinkStyle = ({ isActive, isPending }) =>
   isPending
     ? "pending"

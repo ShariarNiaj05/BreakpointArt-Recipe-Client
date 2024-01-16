@@ -9,6 +9,7 @@ const AllRecipe = () => {
   const axiosSecure = useAxiosSecure();
   const [searchQuery, setSearchQuery] = useState("");
 
+  // getting all the recipe using server side request with tanstack query
   const {
     data: AllRecipe,
     isLoading,
@@ -79,6 +80,8 @@ const AllRecipe = () => {
             </button>
           </form>
         </div>
+        
+        {/* all the available recipe showing  */}
         <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 mt-10 w-5/6">
           {AllRecipe?.map((recipe) => (
             <div className="rounded shadow-lg p-3 " key={recipe._id}>

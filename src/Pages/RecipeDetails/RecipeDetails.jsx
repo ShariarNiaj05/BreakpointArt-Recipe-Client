@@ -9,6 +9,7 @@ const RecipeDetails = () => {
   //   console.log(id);
   const [recipeDetails, setRecipeDetails] = useState({});
 
+  // individual recipe details getting from server side using tanstack query 
   const { data } = useQuery({
     queryKey: ["recipe-details"],
     queryFn: async () => {

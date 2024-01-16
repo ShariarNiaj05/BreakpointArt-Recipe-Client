@@ -39,6 +39,7 @@ const AddRecipe = () => {
       recipeImage: imageData?.data?.display_url,
     };
 
+    // add recipe logic with server site request
     axiosSecure.put("/recipe", newRecipe).then((res) => {
       if (res.data.insertedId) {
         // console.log("Recipe added to DB");
@@ -50,7 +51,7 @@ const AddRecipe = () => {
           timer: 1500,
         });
       }
-      // navigate("/all-recipe");
+      navigate("/all-recipe");
     });
   };
 
@@ -59,6 +60,7 @@ const AddRecipe = () => {
       <AddRecipeBanner></AddRecipeBanner>
       <div className="max-w-screen-sm mx-auto">
         <form className="card-body" onSubmit={handleSubmit}>
+          {/* title  */}
           <div className="form-control">
             <label className="label">
               <span className="label-text">Title</span>
@@ -71,7 +73,7 @@ const AddRecipe = () => {
               required
             />
           </div>
-
+          {/* Ingredients */}
           <label className="label">
             <span className="label-text">Ingredients</span>
           </label>
@@ -83,6 +85,7 @@ const AddRecipe = () => {
             onChange={handleIngredientChange}
             multiple
           >
+            {/* accessing all the ingredients from the stored array  */}
             {recipeIngredients?.map((ingredient) => (
               <option key={ingredient.id} value={ingredient.label}>
                 {ingredient.label}
@@ -90,6 +93,7 @@ const AddRecipe = () => {
             ))}
           </select>
 
+          {/* instruction filed  */}
           <div className="form-control">
             <label className="label">
               <span className="label-text">Instruction</span>
@@ -104,6 +108,7 @@ const AddRecipe = () => {
             ></textarea>
           </div>
 
+          {/* image field  */}
           <div>
             <label htmlFor="image" className="block mb-2 text-sm">
               Select Image:
@@ -129,6 +134,7 @@ const AddRecipe = () => {
   );
 };
 
+// all the provided ingredients
 const recipeIngredients = [
   { id: 1, label: "Flour" },
   { id: 2, label: "Eggs" },

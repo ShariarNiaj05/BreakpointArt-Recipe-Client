@@ -22,7 +22,7 @@ const HomeRecipe = () => {
     },
   });
 
-  const homeSliceRecipe = AllRecipe?.slice(0, 6);
+  const homeSliceRecipe = AllRecipe?.slice(0, 8);
   return (
     <div>
       <h2 className=" font-bold text-4xl text-green-400 mt-5 text-center">

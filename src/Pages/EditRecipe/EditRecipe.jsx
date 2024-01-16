@@ -18,6 +18,7 @@ const EditRecipe = () => {
     instruction: "",
   });
 
+  // edit an existing recipe using the server side with tanstack query
   const { data } = useQuery({
     queryKey: ["recipe-details"],
     queryFn: async () => {
@@ -25,6 +26,7 @@ const EditRecipe = () => {
       setRecipeDetails(res.data);
     },
   });
+
   const handleIngredientChange = (e) => {
     const selectedIngredients = Array.from(
       e.target.selectedOptions,
@@ -46,6 +48,7 @@ const EditRecipe = () => {
       ingredients: recipe.ingredients,
     };
 
+    // update request in the backend server
     axiosSecure.put(`/update-recipe/${id}`, updatedRecipe).then((res) => {
       if (res.data.insertedId) {
         // console.log("Recipe added to DB");
@@ -67,6 +70,8 @@ const EditRecipe = () => {
     <div>
       <div className="max-w-screen-sm mx-auto">
         <form className="card-body" onSubmit={handleSubmit}>
+
+          {/* title  */}
           <div className="form-control">
             <label className="label">
               <span className="label-text">Title</span>
@@ -75,12 +80,13 @@ const EditRecipe = () => {
               type="title"
               placeholder="Title"
               name="title"
-                          className="input input-bordered"
-                          defaultValue={title}
+              className="input input-bordered"
+              defaultValue={title}
               required
             />
           </div>
 
+          {/* Ingredients */}
           <label className="label">
             <span className="label-text">Ingredients</span>
           </label>
@@ -88,11 +94,12 @@ const EditRecipe = () => {
             name="ingredients"
             placeholder="Ingredients"
             className="input input-bordered h-96"
-                      value={recipe.ingredients}
-                      defaultValue={ingredients}
+            value={recipe.ingredients}
+            defaultValue={ingredients}
             onChange={handleIngredientChange}
             multiple
           >
+             {/* accessing all the ingredients from the stored array  */}
             {recipeIngredients?.map((ingredient) => (
               <option key={ingredient.id} value={ingredient.label}>
                 {ingredient.label}
@@ -100,6 +107,7 @@ const EditRecipe = () => {
             ))}
           </select>
 
+          {/* Instruction */}
           <div className="form-control">
             <label className="label">
               <span className="label-text">Instruction</span>
@@ -107,8 +115,8 @@ const EditRecipe = () => {
             <textarea
               name="instruction"
               cols="50"
-                          rows="100"
-                          defaultValue={instructions}
+              rows="100"
+              defaultValue={instructions}
               placeholder="Instruction"
               className="input input-bordered"
               required
