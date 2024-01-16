@@ -3,6 +3,7 @@ import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { imageUpload } from "../../API/imageUpload";
+import AddRecipeBanner from "./AddRecipeBanner";
 
 const AddRecipe = () => {
   const axiosSecure = useAxiosSecure();
@@ -49,12 +50,13 @@ const AddRecipe = () => {
           timer: 1500,
         });
       }
-      navigate("/all-recipe");
+      // navigate("/all-recipe");
     });
   };
 
   return (
     <div>
+      <AddRecipeBanner></AddRecipeBanner>
       <div className="max-w-screen-sm mx-auto">
         <form className="card-body" onSubmit={handleSubmit}>
           <div className="form-control">
@@ -115,7 +117,10 @@ const AddRecipe = () => {
             />
           </div>
 
-          <button type="submit" className="btn btn-primary">
+          <button
+            type="submit"
+            className="btn bg-green-600 hover:bg-green-400 text-white"
+          >
             Add Recipe
           </button>
         </form>
